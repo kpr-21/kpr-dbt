@@ -1,0 +1,32 @@
+banking_dbt:
+  outputs:
+    dev:
+      account: xl52955.ap-southeast-1
+      database: banking
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: accountadmin
+      schema: analytics
+      threads: 4
+      type: snowflake
+      user: KPR21
+      warehouse: COMPUTE_WH
+  target: dev
+kpr_dbt:
+  outputs:
+    dev:
+      catalog: dbt_dev
+      host: dbc-f4be5989-a81d.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/873c78ce57930dac
+      schema: default
+      threads: 1
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      type: databricks
+    prod:
+      catalog: dbt_prod
+      host: dbc-f4be5989-a81d.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/873c78ce57930dac
+      schema: default
+      threads: 1
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      type: databricks
+  target: dev

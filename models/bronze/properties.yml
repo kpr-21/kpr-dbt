@@ -1,0 +1,35 @@
+models:
+  - name: bronze_customer
+    config:
+      materialized: view
+
+  - name: bronze_product
+    config:
+      materialized: view
+
+  - name: bronze_sales
+    columns:
+      - name: sales_id
+        tests:
+          - not_null
+          - unique
+      - name: store_sk
+        tests:
+          - not_null
+          - unique
+      - name: gross_amount
+        tests:
+          - generic_non_negative
+
+  - name: bronze_store
+    columns:
+      - name: store_sk
+        tests:
+          - not_null
+          - unique
+      - name: country
+        tests:
+          - accepted_values:
+              values: ['USA', 'Canada', 'MEX']
+              severity: warn
+    
